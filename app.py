@@ -202,8 +202,5 @@ def page_not_found(e):
 @app.context_processor
 def inject_now():
     return {'now': datetime.datetime.now()}
-# Run the app in Production mode
 
-if __name__ == "__main__":
-    app.run(debug=False)
 
