@@ -45,3 +45,5 @@ typing_extensions==4.8.0
 urllib3==2.0.7
 Werkzeug==3.0.1
 wsproto==1.2.0
+dotenv==0.0.1
+
