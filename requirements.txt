@@ -43,5 +43,5 @@ trio==0.23.1
 trio-websocket==0.11.1
 typing_extensions==4.8.0
 urllib3==2.0.7
-Werkzeug==3.0.0
+Werkzeug==3.0.1
 wsproto==1.2.0
