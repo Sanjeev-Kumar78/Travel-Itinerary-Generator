@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta
+      name="viewport"
+      content="width=device-width, initial-scale=1, shrink-to-fit=no"
+    />
+    <meta http-equiv="x-ua-compatible" content="ie=edge" />
+    <title>Login Page</title>
+    <!-- Font Awesome -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <!-- Google Fonts Roboto -->
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@300;400;500;700;900&display=swap"
+    />
+    <!-- MDB -->
+    <link
+      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
+      rel="stylesheet"
+      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
+      crossorigin="anonymous"
+    />
+
+    <!-- This code block includes a link to the favicon. -->
+    <link rel="icon" href="{{ url_for('static',filename='logo.svg') }}" />
+    
+    <style>
+      body {
+        background: linear-gradient(to right, #44579c 0%, #883893d2 100%),
+          url("https://mdbootstrap.com/img/new/standard/city/044.jpg");
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Section: Design Block -->
+    <section class="text-center">
+      <!-- Background image -->
+      <div class="px-md-4" style="height: 300px"></div>
+      <!-- Background image -->
+
+      <div
+        class="card mx-4 mx-md-5 shadow-5-strong"
+        style="
+          margin-top: -100px;
+          background: hsla(0, 9%, 93%, 0.8);
+          backdrop-filter: blur(30px);
+        "
+      >
+        <div class="card-body py-5 px-md-4">
+          <div class="row d-flex justify-content-center">
+            <div class="col-8">
+              <h2 class="fw-bold mb-5">Login</h2>
+              <!-- Flash Messages Container -->
+              {% with messages = get_flashed_messages(with_categories=true) %}
+              {% if messages %}
+              <div class="container">
+                {% for category, message in messages %}
+                <div class="alert alert-{{ category }}">{{ message }}</div>
+                {% endfor %}
+              </div>
+              {% endif %} {% endwith %}
+              <form action="/login" method="POST">
+                <!-- Email input -->
+                <div class="mb-4">
+                  <!-- <label class="form-label" for="form3Example3"
+                    >Email address:</label> -->
+                  <input
+                    type="email"
+                    class="form-control"
+                    placeholder="Email address"
+                    name="email"
+                    required
+                  />
+                </div>
+
+                <!-- Password input -->
+                <div class="form-outline mb-4">
+                    <input type="password" name="password" id="inputPassword6" class="form-control" placeholder="Password" required>
+                </div>
+                <!-- Submit button -->
+                <button type="submit" class="btn btn-dark btn-block mb-4">
+                  Login
+                </button>
+                <!-- Register link -->
+                <p class="text-center text-muted mt-5 mb-0">
+                  Not a member?
+                  <a href="/register" class="fw-bold text-body"
+                    ><u>Register</u></a
+                  >
+                </p>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+    <script
+      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
+      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
+      crossorigin="anonymous"
+    ></script>
+    <script>
+      <!-- Add this script to automatically hide flash messages after 5 seconds -->
+
+      setTimeout(function () {
+        document.querySelectorAll(".alert").forEach(function (alert) {
+          alert.style.display = "none";
+        });
+      }, 5000); // Flash messages will disappear after 5 seconds (5000 milliseconds)
+    </script>
+  </body>
+</html>
