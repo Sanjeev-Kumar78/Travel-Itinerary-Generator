@@ -10,12 +10,13 @@ from dotenv import load_dotenv
 # Load the environment variables
 load_dotenv()
 api_key = os.environ.get("WEATHER_API_KEY")
+secret_key = os.environ.get("SECRET_KEY")
 
 # Initialize the app
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
-app.secret_key = "super secret key"
+app.secret_key = secret_key
 
 
 class User(db.Model):
@@ -201,7 +202,8 @@ def page_not_found(e):
 @app.context_processor
 def inject_now():
     return {'now': datetime.datetime.now()}
+# Run the app in Production mode
 
+if __name__ == "__main__":
+    app.run(debug=False)
 
-if __name__ == '__main__':
-    app.run(debug=True, port=8000)
