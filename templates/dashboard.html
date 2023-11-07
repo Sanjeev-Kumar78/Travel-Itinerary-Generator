@@ -27,6 +27,7 @@
       main {
         margin-top: 100px;
         margin-bottom: 120px;
+        overflow-x: overlay;
       }
 
       header {
@@ -52,7 +53,7 @@
       .nav-item {
         width: max-content;
       }
-
+      
       @media (max-width: 768px) {
         header {
           font-size: 1rem;
@@ -71,6 +72,7 @@
           width: auto;
         }
       }
+
     </style>
   </head>
   <body>
@@ -233,8 +235,7 @@
     <!-- Footer -->
     <footer
       class="jumbotron text-center text-white fixed-bottom"
-      style="background-color: #030303;
-      position: sticky;"
+      style="background-color: #030303;"
     >
       <!-- Copyright -->
       <div
