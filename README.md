@@ -5,6 +5,13 @@
 
 A web-based Travel Itinerary Generator that simplifies travel planning with personalized itineraries.
 
+## Sample:
+https://github.com/Sanjeev-Kumar78/Travel-Itinerary-Generator/assets/62820550/d55374a9-41bd-4454-8c2b-4f037b1f010b
+
+
+
+
+
 ## Table of Contents
 
 - [About](#about)
