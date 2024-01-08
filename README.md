@@ -3,7 +3,7 @@
 
 <img title="Travel-Itinerary-Generator" align='right' src="/static/logo.svg" alt="Travel Itinerary Generator Logo" width="150"/>
 
-A web-based Travel Itinerary Generator that simplifies travel planning with personalized itineraries.
+Plan your dream trip effortlessly with the Travel Itinerary Generator! This powerful trip planner is your ultimate companion for crafting seamless travel experiences. Whether you're embarking on a road trip, city excursion, or overseas adventure, our tool simplifies the entire planning process.
 
 ## Sample:
 https://github.com/Sanjeev-Kumar78/Travel-Itinerary-Generator/assets/62820550/d55374a9-41bd-4454-8c2b-4f037b1f010b
@@ -11,6 +11,12 @@ https://github.com/Sanjeev-Kumar78/Travel-Itinerary-Generator/assets/62820550/d5
 
 
 
+<p align="center">
+Make your travel dreams a reality. Start planning your next adventure with the Travel Itinerary Generator today!
+</p>
+<p align="center">
+<i>Explore, discover, and make every trip unforgettable.*</i>
+</p>
 
 ## Table of Contents
 
@@ -28,7 +34,7 @@ https://github.com/Sanjeev-Kumar78/Travel-Itinerary-Generator/assets/62820550/d5
 Travel Itinerary Generator is a computer program that empowers travelers to effortlessly create personalized travel itineraries. By considering users' interests, budgets, and travel dates, this application generates comprehensive lists of activities, attractions, and accommodations. Whether you're an experienced traveler or a novice, the Travel Itinerary Generator is your key to saving time and ensuring an enriching and well-rounded travel experience.
 
 ## Limitations & Future Work
-- The Travel Itinerary Generator works only on the basis of the user's source and destination and time of travel.
+- The Travel Itinerary Generator works only based on the user's source and destination and time of travel.
 
 ***Future Work***
 - The Travel Itinerary Generator is not able to generate itineraries for multiple destinations.
