@@ -1,4 +1,4 @@
-# [Travel Itinerary Generator](https://www.sanjeev02.pythonanywhere.com)
+# [Travel Itinerary Generator](https://sanjeev02.pythonanywhere.com)
 ***
 
 <img title="Travel-Itinerary-Generator" align='right' src="/static/logo.svg" alt="Travel Itinerary Generator Logo" width="150"/>
