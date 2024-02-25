@@ -1,6 +1,12 @@
 # [Travel Itinerary Generator](https://sanjeev02.pythonanywhere.com)
 ***
 
+[![GitHub license](https://img.shields.io/github/license/Sanjeev-Kumar78/Travel-Itinerary-Generator)](LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/Sanjeev-Kumar78/Travel-Itinerary-Generator)]()
+[![GitHub contributors](https://img.shields.io/github/contributors/Sanjeev-Kumar78/Travel-Itinerary-Generator)]()
+[![GitHub last-commit](https://img.shields.io/github/last-commit/Sanjeev-Kumar78/Travel-Itinerary-Generator)]()
+
+
 <img title="Travel-Itinerary-Generator" align='right' src="/static/logo.svg" alt="Travel Itinerary Generator Logo" width="150"/>
 
 Plan your dream trip effortlessly with the Travel Itinerary Generator! This powerful trip planner is your ultimate companion for crafting seamless travel experiences. Whether you're embarking on a road trip, city excursion, or overseas adventure, our tool simplifies the entire planning process.
@@ -20,14 +26,18 @@ Make your travel dreams a reality. Start planning your next adventure with the T
 
 ## Table of Contents
 
-- [About](#about)
-- [Features](#features)
-- [Requirements](#requirements)
-- [Setup and Installation](#setup-and-installation)
-- [API Keys](#api-keys)
-- [Usage](#usage)
-- [Screenshots](#screenshots)
-- [License](#license)
+- [Travel Itinerary Generator](#travel-itinerary-generator)
+  - [Sample:](#sample)
+  - [Table of Contents](#table-of-contents)
+  - [About](#about)
+  - [Limitations \& Future Work](#limitations--future-work)
+  - [Features](#features)
+  - [Requirements](#requirements)
+  - [Setup and Installation](#setup-and-installation)
+  - [API Keys](#api-keys)
+  - [Usage](#usage)
+  - [Screenshots](#screenshots)
+  - [License](#license)
 
 ## About
 
