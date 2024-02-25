@@ -1,9 +1,10 @@
 
 from flask import Flask, render_template, request, redirect, url_for, session, flash
 from flask_sqlalchemy import SQLAlchemy
+from flask_sitemapper import Sitemapper
 import bcrypt
-import requests, json
-from datetime import datetime
+import requests
+import datetime
 import bard,os
 from dotenv import load_dotenv
 
@@ -14,6 +15,7 @@ secret_key = os.environ.get("SECRET_KEY")
 
 # Initialize the app
 app = Flask(__name__)
+sitemapper = Sitemapper(app=app) # Create and initialize the sitemapper
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///database.db'
 db = SQLAlchemy(app)
 app.secret_key = secret_key
@@ -39,8 +41,7 @@ with app.app_context():
     db.create_all()
 
 # Weather Data 
-import datetime
-import requests
+
 
 def get_weather_data(api_key: str, location: str, start_date: str, end_date: str) -> dict:
     """
@@ -72,6 +73,7 @@ def get_weather_data(api_key: str, location: str, start_date: str, end_date: str
         print("Error:", e)
         
 
+@sitemapper.include() # Include the route in the sitemap
 @app.route('/', methods=["GET", "POST"])
 def index():
     """
@@ -102,6 +104,7 @@ def index():
     
     return render_template('index.html')
 
+@sitemapper.include() # Include the route in the sitemap
 @app.route('/dashboard', methods=["GET", "POST"])
 def dashboard():
     """
@@ -112,7 +115,7 @@ def dashboard():
     """
     return render_template('dashboard.html')
 
-
+@sitemapper.include() # Include the route in the sitemap
 @app.route("/login", methods=["GET", "POST"])
 def login():
     """
@@ -137,7 +140,7 @@ def login():
     else:
         return render_template("login.html")
 
-
+@sitemapper.include() # Include the route in the sitemap
 @app.route("/logout")
 def logout():
     """
@@ -150,7 +153,7 @@ def logout():
     flash("Logged out.", "info")
     return redirect(url_for("login"))
 
-
+@sitemapper.include() # Include the route in the sitemap
 @app.route("/register", methods=["GET", "POST"])
 def register():
     """
@@ -186,6 +189,16 @@ def register():
             return redirect("/register")
     else:
         return render_template("register.html")
+    
+# Robots.txt
+@app.route('/robots.txt')
+def robots():
+    return render_template('robots.txt')
+
+# Sitemap
+@app.route("/sitemap.xml")
+def r_sitemap():
+    return sitemapper.generate()
 
 # Error handlers
 @app.errorhandler(404)
