@@ -1,178 +1,5 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Travel Itinerary</title>
-    
-    <!-- Bootstrap CDN -->
-    <link
-      href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css"
-      rel="stylesheet"
-      integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN"
-      crossorigin="anonymous"
-    />
-    <!-- bootstrap Icons  -->
-    <link
-      rel="stylesheet"
-      href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.1/font/bootstrap-icons.css"
-    />
-
-    <!-- favicon -->
-    <link rel="icon" href="{{ url_for('static',filename='logo.svg') }}" />
-
-    <style>
-      .alert {
-        transition: opacity 1s; /* You can adjust the duration as needed */
-      }
-      main {
-        margin-top: 100px;
-        margin-bottom: 100px;
-      }
-
-      header {
-        position: relative;
-        top: 0;
-        left: 0;
-        right: 0;
-        z-index: 1;
-      }
-
-      .navbar-nav {
-        display: block;
-        flex-direction: row;
-        list-style: none;
-      }
-      .navbar-nav li {
-        padding: 0 10px;
-      }
-      .navbar-nav li a {
-        text-decoration: none;
-        color: #fff;
-      }
-      .nav-item {
-        width: max-content;
-      }
-
-      @media (max-width: 768px) {
-        header {
-          font-size: 1rem;
-          padding: 1.5rem;
-          text-align: center;
-        }
-
-        header h1 {
-          font-size: 1.5rem;
-        }
-
-        header nav {
-          display: none;
-        }
-        .nav-item {
-        width: auto;
-      }
-
-      }
-
-    </style>
-  </head>
-  <body>
-    <header>
-      <nav
-        class="navbar navbar-expand-lg fixed-top bg-body-tertiary"
-        data-bs-theme="dark"
-      >
-        <div class="container-fluid">
-          <a class="navbar-brand" href="/">
-            <img
-              src="{{ url_for('static',filename='logo.svg') }}"
-              alt="Logo"
-              width="50"
-              height="30"
-              class="d-inline-block align-text-top"
-            />
-            <b>Travel Itinerary </b>
-            <small class="text-body-secondary"
-              >Generator
-              <span class="badge rounded-pill bg-primary text-light">Beta</span>
-            </small>
-          </a>
-          <!-- Flash Messages Container -->
-
-          <div
-            style="
-              position: absolute;
-              top: 0;
-              left: 0;
-              right: 0;
-              display: flex;
-              justify-content: center;
-              align-items: center;
-            "
-            class="container text-center"
-          >
-            {% with messages = get_flashed_messages(with_categories=true) %} {%
-            if messages %}
-            <div class="my-0">
-              <div class="col my-0 p-0">
-                <div class="flash-messages">
-                  {% for category, message in messages %}
-                  <div class="alert alert-{{ category }}">{{ message }}</div>
-                  {% endfor %}
-                </div>
-              </div>
-            </div>
-            {% endif %} {% endwith %}
-          </div>
-        </div>
-        <ul class="navbar-nav d-flex me-auto mb-2 mb-lg-0">
-          <li class="nav-item me-3">
-            <a class="nav-link" href="/">Home</a>
-          </li>
-          <li class="nav-item me-3">
-            <a class="nav-link" href="/dashboard">Dashboard</a>
-          </li>
-          <li class="nav-item me-3">
-            <a class="nav-link" href="#">About Us</a>
-          </li>
-        </ul>
-        <!-- Left links -->
-
-        <div class="d-flex align-items-center">
-          {% if session.user_name %}
-          <b style="width: max-content; color: #fff" class="d-flex py-0 me-3"
-            >Welcome, {{ session.user_name }}</b
-          >
-          <a href="/logout" class="btn btn-link px-3 me-2">Logout</a>
-          {% else %}
-          <a href="/login">
-            <button
-              style="text-decoration: none"
-              type="button"
-              class="btn btn-link px-3 me-2"
-            >
-              Login
-            </button>
-          </a>
-          <a href="/register">
-            <button
-              style="width: max-content"
-              type="button"
-              class="nav-items btn btn-outline-primary px-3 mx-2"
-            >
-              Sign Up
-            </button>
-          </a>
-          {% endif %}
-          <a
-            class="btn btn-dark px-3 me-2"
-            href="https://github.com"
-            role="button"
-            ><i class="bi bi-github"></i
-          ></a>
-        </div>
-      </nav>
-    </header>
+{% extends "headers.html" %}
+{% block content %}
     <!-- Main Content -->
     
 
@@ -196,6 +23,7 @@
             name="source"
             id="source"
             placeholder="Enter your boarding point"
+            required
           />
         </div>
         <div class="form-group">
@@ -206,13 +34,14 @@
             name="destination"
             id="destination"
             placeholder="Enter your destination"
+            required
           />
         </div>
         <span class="form-group">
           <label for="date">Travel Date:</label>
-          <input type="date" class="form-control" name="date" id="date" />
+          <input type="date" class="form-control" name="date" id="date"required/>
           <label for="return">Return Date:</label>
-          <input type="date" class="form-control" name="return" id="return" />
+          <input type="date" class="form-control" name="return" id="return" required/>
         </span>
         
         
@@ -275,16 +104,14 @@
             alert.style.display = "none";
           });
         }, 1000); // Adjust this delay to match your transition duration (in this case, 1 second)
-      }, 5000);
+      }, 5000); // Adjust this delay to match your transition duration (in this case, 3 seconds)
 
-      // This script change display of id loading to block when submit button is clicked
-      const submit = document.querySelector("button");
-      const loading = document.querySelector("#loading");
-      // submit button clicked or enter key pressed
-      submit.addEventListener("click", function () {
-        loading.style.display = "block";
+      // Load the loading gif on click or enter of submit button in form
+      document.querySelector('form').addEventListener('submit', function() {
+        document.getElementById('loading').style.display = 'block';
       });
-    </script>
-    
+  </script>
+  
+    {% endblock %}
     </body>
 </html>

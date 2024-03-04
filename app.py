@@ -70,7 +70,7 @@ def get_weather_data(api_key: str, location: str, start_date: str, end_date: str
         # print(json.dumps(data, indent=4, sort_keys=True))
         return data
     except requests.exceptions.RequestException as e:
-        print("Error:", e)
+        print("Error:", e.__str__)
         
 
 @sitemapper.include() # Include the route in the sitemap
@@ -91,7 +91,15 @@ def index():
         # Calculating the number of days
         no_of_day = (datetime.datetime.strptime(end_date, "%Y-%m-%d") - datetime.datetime.strptime(start_date, "%Y-%m-%d")).days
         # Process the route input here
-        weather_data = get_weather_data(api_key, destination, start_date, end_date)
+        if no_of_day < 0:
+            flash("Return date should be greater than the Travel date (Start date).", "danger")
+            return redirect(url_for("index"))
+        else:
+            try:
+                weather_data = get_weather_data(api_key, destination, start_date, end_date)
+            except requests.exceptions.RequestException as e:
+                flash("Error in retrieving weather data.{e.Error}", "danger")
+                return redirect(url_for("index"))
         
         """Debugging"""
         # Json data format printing
