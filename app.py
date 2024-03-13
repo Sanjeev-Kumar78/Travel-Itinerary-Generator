@@ -104,8 +104,11 @@ def index():
         """Debugging"""
         # Json data format printing
         # print(json.dumps(weather_data, indent=4, sort_keys=True))
-        
-        plan = bard.generate_itinerary(source, destination, start_date, end_date, no_of_day)
+        try:
+            plan = bard.generate_itinerary(source, destination, start_date, end_date, no_of_day)
+        except Exception as e:
+            flash("Error in generating the plan. Please try again later.", "danger")
+            return redirect(url_for("index"))
         if weather_data:
             # Render the weather information in the template
             return render_template("dashboard.html", weather_data=weather_data, plan=plan)

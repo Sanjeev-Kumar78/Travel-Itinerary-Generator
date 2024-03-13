@@ -1,0 +1,77 @@
+@import url("https://fonts.googleapis.com/css?family=Roboto");
+
+.floating-container {
+    position: fixed;
+    width: 65px;
+    height: 65px;
+    bottom: 20px;
+    right: 20px;
+    z-index: 1380;
+    -webkit-transition: height 0.3s;
+    transition: height 0.3s;
+    }
+.floating-container:hover {
+  height: auto;
+}
+
+.floating-container:hover .float-element {
+  -webkit-animation: come-in 0.5s ease forwards;
+          animation: come-in 0.5s ease forwards;
+  -webkit-transform: translatey(10px);
+          transform: translatey(10px);
+  opacity: 1;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+
+.floating-container .floating-button {
+  position: relative;
+  width: 65px;
+  height: 65px;
+  background: #2cb3f0;
+  bottom: 0;
+  border-radius: 50%;
+  margin: auto;
+  line-height: 65px;
+  text-align: center;
+  font-size: 23px;
+  z-index: 1380;
+  box-shadow: 0 10px 25px -5px rgba(44, 179, 240, 0.6);
+  cursor: pointer;
+  -webkit-transition: all 0.3s;
+  transition: all 0.3s;
+}
+.floating-container .float-element {
+  position: relative;
+  display: block;
+  border-radius: 50%;
+  width: 50px;
+  height: 50px;
+  margin: 15px auto;
+  color: white;
+  font-weight: 500;
+  text-align: center;
+  line-height: 50px;
+  z-index: 1380;
+  opacity: 0;
+  -webkit-transform: translateY(100px);
+          transform: translateY(100px);
+}
+.floating-container .float-element:nth-child(1) {
+  background: #0778e9;
+}
+.floating-container .float-element:nth-child(2) {
+  background: #00ff2a;
+}
+.floating-container .float-element:nth-child(3) {
+  background: #000000;
+}
+.floating-container .float-element:nth-child(4) {
+  background: #0088b2;
+}
+.floating-container .float-element:nth-child(5) {
+  background: #23a8eb;
+}
+.floating-container .float-element:nth-child(6) {
+  background: #52015b;
+}

@@ -1,134 +1,199 @@
 {% extends "headers.html" %}
 {% block content %}
-    <!-- Main Content -->
-    <main>
-      <div class="container">
-        <h1>Weather Information</h1>
-        <h5><b>Location:</b> {{weather_data['resolvedAddress']}}</h5>
-        <table class="table table-striped">
-          <thead>
-            <tr>
-              <th>Date</th>
-              <th>Current Weather Conditions</th>
-              <th>Max Temperature (in °C)</th>
-              <th>Min Temperature (in °C)</th>
-              <th>Precipitation Probability</th>
-              <th>Humidity</th>
-              <th>Weather Alerts</th>
-            </tr>
-          </thead>
-          <tbody>
-            {% for weather_data_item in weather_data['days'] %}
-            <tr>
-              <td>{{ weather_data_item['datetime'] }}</td>
-              <td>{{ weather_data_item['conditions'] }}</td>
-              <td>{{ weather_data_item['tempmax'] }}</td>
-              <td>{{ weather_data_item['tempmin'] }}</td>
-              <td>{{ weather_data_item['precipprob'] }}</td>
-              <td>{{ weather_data_item['humidity'] }}</td>
-              <td>{{ weather_data_item['description'] }}</td>
-            </tr>
-            {% endfor %}
-          </tbody>
-        </table>
-      </div>
-      <div class="container">
-        <!-- Paragraph of plan with markdown syntax -->
-        <h1>Planned Itinerary</h1>
-        <code
-          ><h6>
+<!-- Main Content -->
+<main>
+  <div class="container">
+    <h1>Weather Information</h1>
+    <h5><b>Location:</b> {{weather_data['resolvedAddress']}}</h5>
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Date</th>
+          <th>Current Weather Conditions</th>
+          <th>Max Temperature (in °C)</th>
+          <th>Min Temperature (in °C)</th>
+          <th>Precipitation Probability</th>
+          <th>Humidity</th>
+          <th>Weather Alerts</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for weather_data_item in weather_data['days'] %}
+        <tr>
+          <td>{{ weather_data_item['datetime'] }}</td>
+          <td>{{ weather_data_item['conditions'] }}</td>
+          <td>{{ weather_data_item['tempmax'] }}</td>
+          <td>{{ weather_data_item['tempmin'] }}</td>
+          <td>{{ weather_data_item['precipprob'] }}</td>
+          <td>{{ weather_data_item['humidity'] }}</td>
+          <td>{{ weather_data_item['description'] }}</td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+  <div class="container">
+    <!-- Paragraph of plan with markdown syntax -->
+    <h1>Planned Itinerary</h1>
+    <code><h6>
             **This is a tentative itinerary, so please be flexible, it may have
             some mistakes.
-          </h6></code
-        >
+          </h6></code>
 
-        <div id="markdown-content">{{ plan }}</div>
-      </div>
+    <div id="markdown-content">{{ plan }}</div>
+  </div>
 
-      <!-- Hotels at Destination -->
-      <div class="md-4 pd container">
-        <h5>
-          For Hotels & Flight Booking:
-          <a style="text-decoration: none" href="https://www.booking.com" target="_blank">
-            <button
-              type="button"
-              class="btn btn-light"
-            >
-              Click Here
-            </button>
-          </a>
-        </h5>
-      </div>
-    </main>
-    <!-- Footer -->
-    <footer
-      class="jumbotron text-center text-white fixed-bottom"
-      style="background-color: #030303;"
-    >
-      <!-- Copyright -->
-      <div
-        class="text-center p-3"
-        style="background-color: rgba(255, 255, 255, 0)"
-      >
-        <p>&copy {{now.year}} Copyright</p>
-        <p>
-          Made With 🩷 By
-          <a style="color: #0ed9ddd6; text-decoration: none" href="#"
-            >Sanjeev</a
-          >
-        </p>
-      </div>
-      <!-- Copyright -->
-    </footer>
+  <!-- Hotels at Destination -->
+  <div class="md-4 pd container">
+    <h5>
+      For Hotels & Flight Booking:
+      <a style="text-decoration: none" href="https://www.booking.com" target="_blank">
+        <button type="button" class="btn btn-light">
+          Click Here
+        </button>
+      </a>
+    </h5>
+  </div>
+</main>
 
-    <!-- 
-      This script tag includes the Bootstrap JavaScript bundle from a CDN with a specific version and integrity hash for security purposes.
-    -->
-    <script
-      src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"
-      integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL"
-      crossorigin="anonymous"
-    ></script>
 
-    <!-- 
+<!-- Share Icon -->
+<div class="floating-container">
+  <div class="floating-button">
+    <i class="fa-solid fa-share-from-square"></i>
+  </div>
+  <!-- Elements -->
+  <div class="element-container">
+    <!-- Facebook -->
+    <a class="float-element" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//sanjeev02.pythonanywhere.com/"
+      target="_blank">
+      <span>
+        <i class="fa-brands fa-facebook"></i>
+    </a>
+
+    <!-- WhatsApp -->
+    </span>
+    <a class="float-element"
+      href="https://api.whatsapp.com/send?text=Check%20out%20this%20page:%20https://sanjeev02.pythonanywhere.com"
+      target="_blank">
+      <span>
+        <i class="fa-brands fa-whatsapp"></i>
+      </span>
+    </a>
+
+    <!-- Twitter or X -->
+    <a class="float-element"
+      href="https://twitter.com/intent/tweet?text=Check%20out%20this%20page:%20https://sanjeev02.pythonanywhere.com"
+      target="_blank">
+      <span>
+        <i class="fa-brands fa-x-twitter"></i>
+      </span>
+    </a>
+
+    <!-- LinkedIn -->
+    <a class="float-element"
+      href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//sanjeev02.pythonanywhere.com" target="_blank">
+      <span>
+        <i class="fa-brands fa-linkedin"></i>
+      </span>
+    </a>
+
+    <!-- Telegram -->
+    <a class="float-element"
+      href="https://t.me/share?url=https%3A%2F%2Fsanjeev02.pythonanywhere.com%2F&text=Check%20this%20out"
+      target="_blank">
+      <span>
+        <i class="fa-brands fa-telegram"></i>
+      </span>
+    </a>
+    <!-- Download -->
+    <button id="download" class="float-element">
+      <span>
+        <i class="fa-solid fa-download"></i>
+      </span>
+    </button>
+  </div>
+</div>
+
+
+<!-- Footer -->
+<footer class="jumbotron text-center text-white fixed-bottom" style="background-color: #030303;">
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(255, 255, 255, 0)">
+    <p>&copy {{now.year}} Copyright</p>
+    <p>
+      Made With 🩷 By
+      <a style="color: #0ed9ddd6; text-decoration: none" href="#">Sanjeev</a>
+    </p>
+  </div>
+</footer>
+
+<!-- Download libraries -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js"
+  integrity="sha512-GsLlZN/3F2ErC5ifS5QtgpiJtWd43JWSuIgh7mbzZ8zBps+dvLusV+eNQATqgA/HdeKFVgA5v3S/cIrLF7QnIg=="
+  crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+<!-- 
     This script sets a timeout function to remove all elements with the class "alert" after a certain duration. 
     It first sets the opacity of the elements to 0 to initiate the transition, and then removes the elements after the transition duration. 
     The delay for the transition duration can be adjusted by changing the value of the second setTimeout function. 
     -->
-    <script>
-      setTimeout(function () {
-        const alerts = document.querySelectorAll(".alert");
+<script>
+  setTimeout(function () {
+    const alerts = document.querySelectorAll(".alert");
 
-        alerts.forEach(function (alert) {
-          // Set opacity to 0 to initiate the transition
-          alert.style.opacity = 0;
-        });
+    alerts.forEach(function (alert) {
+      // Set opacity to 0 to initiate the transition
+      alert.style.opacity = 0;
+    });
 
-        // After the transition duration, remove the alert elements
-        setTimeout(function () {
-          alerts.forEach(function (alert) {
-            alert.style.display = "none";
-          });
-        }, 1000); // Adjust this delay to match your transition duration (in this case, 1 second)
-      }, 5000);
-    </script>
+    // After the transition duration, remove the alert elements
+    setTimeout(function () {
+      alerts.forEach(function (alert) {
+        alert.style.display = "none";
+      });
+    }, 1000); // Adjust this delay to match your transition duration (in this case, 1 second)
+  }, 5000);
+</script>
 
-    <!-- This script tag includes the markdown-it library from the specified CDN. -->
-    <script src="https://cdn.jsdelivr.net/npm/markdown-it@11.0.1/dist/markdown-it.min.js"></script>
+<!-- This script tag includes the markdown-it library from the specified CDN. -->
+<script src="https://cdn.jsdelivr.net/npm/markdown-it@11.0.1/dist/markdown-it.min.js"></script>
 
-    <!-- This script creates a Markdown parser, converts the Markdown text to HTML, and inserts the converted HTML into the document. The Markdown text is obtained from an element with the ID "markdown-content". -->
-    <script>
-      // Create a Markdown parser
-      const md = window.markdownit();
+<!-- This script creates a Markdown parser, converts the Markdown text to HTML, and inserts the converted HTML into the document. The Markdown text is obtained from an element with the ID "markdown-content". -->
+<script>
+  // Create a Markdown parser
+  const md = window.markdownit();
 
-      // Convert the Markdown text to HTML
-      const html = md.render(
-        document.getElementById("markdown-content").textContent
-      );
+  // Convert the Markdown text to HTML
+  const html = md.render(
+    document.getElementById("markdown-content").textContent
+  );
 
-      // Insert the converted HTML into the document
-      document.getElementById("markdown-content").innerHTML = html;
-    </script>
-    {% endblock %}
-  </body>
+  // Insert the converted HTML into the document
+  document.getElementById("markdown-content").innerHTML = html;
+  // pdf of itinerary
+  document.getElementById('download').addEventListener('click', function() {
+    var element = document.querySelector('main');
+    var opt = {
+      margin: 0.5,
+      filename: 'itinerary.pdf',
+      image: { type: 'png', quality: 100 },
+      html2canvas: { scale: 0.8 },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+    };
+
+      html2pdf().set(opt).from(element).toPdf().get('pdf').then(function(pdf) {
+      var totalPages = pdf.internal.getNumberOfPages();
+      for (var i = 1; i <= totalPages; i++) {
+        // Set position and alignment of footer text
+        pdf.setPage(i);
+        pdf.text('Visit us at:"https://sanjeev02.pythonanywhere.com"', 0.2, pdf.internal.pageSize.height - 0.3);
+      }
+      pdf.save('itinerary.pdf');
+    });
+  });
+
+</script>
+{% endblock %}
+</body>
+
 </html>
