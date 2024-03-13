@@ -112,16 +112,6 @@ def index():
     
     return render_template('index.html')
 
-@sitemapper.include() # Include the route in the sitemap
-@app.route('/dashboard', methods=["GET", "POST"])
-def dashboard():
-    """
-    Renders the dashboard.html template.
-
-    Returns:
-        The rendered dashboard.html template.
-    """
-    return render_template('dashboard.html')
 
 @sitemapper.include() # Include the route in the sitemap
 @app.route("/login", methods=["GET", "POST"])
