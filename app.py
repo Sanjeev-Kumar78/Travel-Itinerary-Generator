@@ -73,6 +73,27 @@ def get_weather_data(api_key: str, location: str, start_date: str, end_date: str
         print("Error:", e.__str__)
         
 
+
+# Email Function
+
+def send_email(name, email, message):
+    # Send email
+    from flask_mail import Mail, Message
+    app.config['MAIL_SERVER'] = "smtp.gmail.com"
+    app.config['MAIL_PORT'] = int(os.environ.get('MAIL_PORT', 587))
+    app.config['MAIL_USE_TLS'] = os.environ.get('MAIL_USE_TLS', 'true').lower() == 'true'
+    app.config['MAIL_USERNAME'] = os.environ.get('EMAIl')
+    app.config['MAIL_PASSWORD'] = os.environ.get('EMAIL_PASSWORD')
+
+    mail = Mail(app)
+    msg = Message('Contact Form Submission', sender='your_email@example.com', recipients=['owner_email@example.com'])
+    msg.body = f'Name: {name}\nEmail: {email}\nMessage: {message}'
+    
+    # Send email
+    mail.send(msg)
+
+    
+
 @sitemapper.include() # Include the route in the sitemap
 @app.route('/', methods=["GET", "POST"])
 def index():
@@ -98,7 +119,7 @@ def index():
             try:
                 weather_data = get_weather_data(api_key, destination, start_date, end_date)
             except requests.exceptions.RequestException as e:
-                flash("Error in retrieving weather data.{e.Error}", "danger")
+                flash("Error in retrieving weather data.{e.Er fror}", "danger")
                 return redirect(url_for("index"))
         
         """Debugging"""
@@ -115,6 +136,41 @@ def index():
     
     return render_template('index.html')
 
+@sitemapper.include() # Include the route in the sitemap
+@app.route("/about")
+def about():
+    """
+    Renders the about.html template.
+
+    Returns:
+        The rendered about.html template.
+    """
+    return render_template("about.html")
+
+@sitemapper.include() # Include the route in the sitemap
+@app.route("/contact" , methods=['GET', 'POST'])
+def contact():
+    """
+    Renders the contact.html template.
+
+    Returns:
+        The rendered contact.html template.
+    """
+    user_email = session.get('user_email', "Enter your email")
+    user_name = session.get('user_name', "Enter your name")
+    message = ''
+
+    if request.method == 'POST':
+        name = request.form['name'] if request.form['name'] else user_name
+        email = request.form['email'] if request.form['email'] else user_email
+        message = request.form['message']
+
+        # Send the email
+        send_email(name, email, message)
+
+        message = "Thank you for contacting us! We will get back to you soon."
+
+    return render_template("contact.html", user_email=user_email, user_name=user_name, message=message)
 
 @sitemapper.include() # Include the route in the sitemap
 @app.route("/login", methods=["GET", "POST"])
@@ -134,7 +190,9 @@ def login():
             session["user_name"] = user.name
             session["user_email"] = user.email
             flash("Login successful.", "success")
+            print(session["user_email"])
             return redirect(url_for("index"))
+        
         else:
             flash("Wrong email or password. Please try again or register now.", "danger")
             return redirect(url_for("login"))

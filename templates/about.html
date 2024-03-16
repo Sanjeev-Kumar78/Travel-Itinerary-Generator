@@ -1,0 +1,117 @@
+{% extends "headers.html" %}
+{% block content %}
+
+<!-- Main Content -->
+<main class="bg-light bg-gradient" style="margin-top: 0;">
+  <h2 class="display-1 text-center" style="margin-top: 145px;"> About Us</h2>
+
+
+  <div class="card border-primary" style="border-left-width: thick">
+
+    <div class="card-body">
+      <img src="{{url_for('static',filename='logo.svg')}}" class="img-fluid" alt="About Us" style="border-radius: 10px; float: right; width: 30%; height: 30%;"/>
+
+      <p class="card-text">
+        Welcome to the Travel-Itinerary Generator, your go-to destination for
+        personalized travel planning and seamless itinerary creation. At
+        Travel-Itinerary Generator, we understand that every journey is unique,
+        and that's why we're dedicated to providing you with the tools and
+        resources to make your travel experience unforgettable.
+      </p>
+      <p class="card-text">
+        On behalf of our vision to streamline and make travel accessible to budget
+        conscious travelers like you by making the process simple and easy to
+        navigate. Whether it is a solo, family adventure, or a group travel, our
+        platform gives you all that you need to have created tailor made
+        itineraries that combine your interests and taste.
+      </p>
+      <p class="card-text">
+        Modern technology called for fast-tracking of decision making. To help
+        travelers in the process Travel-Itinerary Generator platform ate a step
+        forward. It combines artificial intelligence, data analysis, and
+        user-friendly interfaces to deliver an exceptional convenience and
+        efficiency. Every step of your travel, from destination recommendation to
+        real-time updates, budget management, and offline vive, we ensure
+        precaution.
+      </p>
+      <p class="card-text">
+        By being a travel lover at Travel-Itinerary-Generator, we guarantee you
+        exciting travels and the most out of every journey. Be our company as we
+        head out on this amazing tour and learn something new about our world!
+      </p>
+      <p class="card-text">
+        Don't let your dream destination remain just that - a dream. Get started
+        with the Travel-Itinerary Generator tool now.Your dream vacation awaits!
+      </p>
+    </div>
+  </div>
+</main>
+<!-- Share Icon -->
+<div class="floating-container">
+  <div class="floating-button">
+    <i class="fa-solid fa-share-from-square"></i>
+  </div>
+  <!-- Elements -->
+  <div class="element-container">
+    <!-- Facebook -->
+    <a class="float-element" href="https://www.facebook.com/sharer/sharer.php?u=https%3A//sanjeev02.pythonanywhere.com/"
+      target="_blank">
+      <span>
+        <i class="fa-brands fa-facebook"></i>
+    </a>
+
+    <!-- WhatsApp -->
+    </span>
+    <a class="float-element"
+      href="https://api.whatsapp.com/send?text=Check%20out%20this%20page:%20https://sanjeev02.pythonanywhere.com"
+      target="_blank">
+      <span>
+        <i class="fa-brands fa-whatsapp"></i>
+      </span>
+    </a>
+
+    <!-- Twitter or X -->
+    <a class="float-element"
+      href="https://twitter.com/intent/tweet?text=Check%20out%20this%20page:%20https://sanjeev02.pythonanywhere.com"
+      target="_blank">
+      <span>
+        <i class="fa-brands fa-x-twitter"></i>
+      </span>
+    </a>
+
+    <!-- LinkedIn -->
+    <a class="float-element"
+      href="https://www.linkedin.com/shareArticle?mini=true&url=https%3A//sanjeev02.pythonanywhere.com" target="_blank">
+      <span>
+        <i class="fa-brands fa-linkedin"></i>
+      </span>
+    </a>
+
+    <!-- Telegram -->
+    <a class="float-element"
+      href="https://t.me/share?url=https%3A%2F%2Fsanjeev02.pythonanywhere.com%2F&text=Check%20this%20out"
+      target="_blank">
+      <span>
+        <i class="fa-brands fa-telegram"></i>
+      </span>
+    </a>
+
+  </div>
+</div>
+
+<!-- Footer -->
+
+<footer class="jumbotron text-center text-white fixed-bottom" style="background-color: #030303">
+  <!-- Copyright -->
+  <div class="text-center p-3" style="background-color: rgba(255, 255, 255, 0)">
+    <p>&copy {{now.year}} Copyright</p>
+    <p>
+      Made With 🩷 By
+      <a style="color: #0ed9ddd6; text-decoration: none" href="#">Sanjeev</a>
+    </p>
+  </div>
+</footer>
+{% endblock %}
+</body>
+
+</html>

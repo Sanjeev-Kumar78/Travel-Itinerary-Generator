@@ -7,7 +7,8 @@
 
     <!-- Share Button css -->
     <link
-      rel="stylesheet" type="text/css"
+      rel="stylesheet"
+      type="text/css"
       href="{{ url_for('static', filename='share.css' ) }}"
     />
     <script
@@ -41,7 +42,7 @@
       }
 
       header {
-        position: relative;
+        position: absolute;
         top: 0;
         left: 0;
         right: 0;
@@ -65,6 +66,10 @@
       }
 
       @media (max-width: 768px) {
+        main {
+          margin-top: 150px;
+        }
+
         header {
           font-size: 1rem;
           padding: 1.5rem;
@@ -76,7 +81,7 @@
         }
 
         header nav {
-          display: none;
+          display: block;
         }
         .nav-item {
           width: auto;
@@ -93,11 +98,12 @@
         <div class="container-fluid">
           <a class="navbar-brand" href="/">
             <img
-              src="{{ url_for('static',filename='logo.svg') }}"
+              src="{{ url_for('static',filename='logo.png') }}"
               alt="Logo"
-              width="50"
-              height="30"
-              class="d-inline-block align-text-top"
+              width="40"
+              height="40"
+              style="border-radius: 10px"
+              class="d-inline-block s"
             />
             <b>Travel Itinerary </b>
             <small class="text-body-secondary"
@@ -135,29 +141,36 @@
         </div>
         <ul class="navbar-nav d-flex me-auto mb-2 mb-lg-0">
           <li class="nav-item me-3">
-            <a class="nav-link" href="/">Home</a>
+            <a class="nav-link btn btn-dark" href="/"
+              ><i class="fa-solid fa-house-user"></i> Home</a
+            >
           </li>
           <li class="nav-item me-3">
-            <a class="nav-link" href="#">About Us</a>
+            <a class="nav-link btn btn-dark" href="/about"
+              ><i class="fa-solid fa-info"></i> About Us</a
+            >
           </li>
           <li class="nav-item me-3">
-            <a class="nav-link" href="#">Contact Us</a>
+            <a class="nav-link btn btn-dark" href="/contact"
+              ><i class="fa-solid fa-at"></i> Contact Us</a
+            >
           </li>
         </ul>
         <!-- Left links -->
 
         <div class="d-flex align-items-center">
           {% if session.user_name %}
-          <b style="width: max-content; color: #fff" class="d-flex py-0 me-3"
+          <b style="width: max-content; color: #fff" class="d-flex py-1 me-3"
             >Welcome, {{ session.user_name }}</b
           >
-          <a href="/logout" class="btn btn-link px-3 me-2">Logout</a>
+          <a href="/logout" class="btn-primary rounded btn px-3 me-2">Logout</a>
           {% else %}
+
           <a href="/login">
             <button
               style="text-decoration: none"
               type="button"
-              class="btn btn-link px-3 me-2"
+              class="btn-primary rounded btn px-3 me-2"
             >
               Login
             </button>
@@ -166,9 +179,9 @@
             <button
               style="width: max-content"
               type="button"
-              class="nav-items btn btn-outline-primary px-3 mx-2"
+              class="nav-items btn btn-success rounded ms-3 px-3 mx-2"
             >
-              Sign Up
+              <i class="fa-solid fa-user-plus"></i> Sign Up
             </button>
           </a>
           {% endif %}
