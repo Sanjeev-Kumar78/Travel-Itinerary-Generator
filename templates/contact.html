@@ -101,8 +101,9 @@
 <script type="text/javascript"
   src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
 
+  <!-- EmailJS Setup -->
 <script type="text/javascript">
-  emailjs.init('It5a_bXv0v13nlRwp')
+  emailjs.init('Public Key') // Replace with your emailjs public key
 </script>
 
 <script>
@@ -116,8 +117,8 @@ document.getElementById('form')
 
    btn.value = 'Submitting...';
 
-   const serviceID = 'service_rdew3vo';
-   const templateID = 'template_fl8v5ri';
+   const serviceID = 'service_id'; // Replace with your service_id
+   const templateID = 'template_id'; // Replace with yout template id
 
    emailjs.sendForm(serviceID, templateID, this)
     .then(() => {
