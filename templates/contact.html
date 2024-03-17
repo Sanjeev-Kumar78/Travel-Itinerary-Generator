@@ -1,5 +1,6 @@
 {% extends "headers.html" %}
 {% block content %}
+
 <!-- Main Content -->
 <main>
   <div class="container">
@@ -9,13 +10,11 @@
       improve
       our service.
     </p>
-    {% if message %}
-    <div class="alert alert-success" role="alert">
-      {{ message }}
+    <div style="display: none;" class="alert alert-success" id="success-alert" role="alert">
+      Thank you for contacting us! We will get back to you soon.
     </div>
-    {% endif %}
 
-    <form method="post">
+    <form id="form">
       <div class="mb-3">
         <label for="name" class="form-label">Name :</label>
         <input type="text" class="form-control" id="name" name="name" value="{{ user_name }}">
@@ -28,7 +27,8 @@
         <label for="message" class="form-label">Message:</label>
         <textarea class="form-control" id="message" name="message" rows="3"></textarea>
       </div>
-      <button type="submit" class="btn btn-primary">Submit</button>
+      <input type="submit" class="btn btn-primary" id="button" value="Submit" >
+      <!-- <button type="submit" id="button" class="btn btn-primary" value="Send Email"></button> -->
     </form>
   </div>
 </main>
@@ -97,6 +97,42 @@
     </p>
   </div>
 </footer>
+
+<script type="text/javascript"
+  src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js"></script>
+
+<script type="text/javascript">
+  emailjs.init('It5a_bXv0v13nlRwp')
+</script>
+
+<script>
+
+const btn = document.getElementById('button');
+const alerter = document.getElementById('success-alert');
+
+document.getElementById('form')
+ .addEventListener('submit', function(event) {
+   event.preventDefault();
+
+   btn.value = 'Submitting...';
+
+   const serviceID = 'service_rdew3vo';
+   const templateID = 'template_fl8v5ri';
+
+   emailjs.sendForm(serviceID, templateID, this)
+    .then(() => {
+      alerter.style.display = 'block';
+      btn.value = 'Submitted';
+      
+    }, (err) => {
+      btn.value = 'Submit';
+      alert(JSON.stringify(err));
+    });
+});
+
+
+</script>
+
 {% endblock %}
 </body>
 
