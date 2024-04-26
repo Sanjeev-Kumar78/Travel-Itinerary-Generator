@@ -9,7 +9,8 @@ palm_api_key = os.environ.get("PALM_API_KEY")
 
 # Create a config.
 palm.configure(api_key=palm_api_key)
-model = palm.GenerativeModel(model_name="gemini-1.0-pro-latest")
+model = palm.GenerativeModel(model_name="gemini-pro")
+# print(list(palm.list_models()))
 
 
 # Generate some text.

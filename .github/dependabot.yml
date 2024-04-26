@@ -4,18 +4,14 @@
 # https://docs.github.com/code-security/dependabot/dependabot-version-updates/configuration-options-for-the-dependabot.yml-file
 
 version: 2
-updates:     
+updates:
   - package-ecosystem: "pip"
     directory: "/"
     schedule:
       interval: "weekly"
-      # Include a list of updated dependencies
-      # with a prefix determined by the dependency group
-      commit-message:
-        prefix: "pip prod"
-        prefix-development: "pip dev"
-        include: "scope"
+    commit-message:
+      prefix: "pip prod"
+      include: "scope"
     allow:
-      # Allow only direct updates for
-      - dependency-name: "flask*"
+      - dependency-name: "Flask"
         dependency-type: "direct"
