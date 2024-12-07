@@ -40,9 +40,35 @@ class User(db.Model):
 with app.app_context():
     db.create_all()
 
+@app.after_request
+def add_csp_header(response):
+    csp = (
+        "default-src 'self'; "
+        # Allow external scripts like FontAwesome, Bootstrap, EmailJS, and others
+        "script-src 'self' 'unsafe-inline' https://kit.fontawesome.com https://cdnjs.cloudflare.com https://cdn.jsdelivr.net https://emailjs.com; "
+        # Allow inline styles and external stylesheets (Bootstrap, FontAwesome, Google Fonts)
+        "style-src 'self' 'unsafe-inline' https://cdn.jsdelivr.net https://cdnjs.cloudflare.com https://fonts.googleapis.com; "
+        # Allow fonts from Google Fonts and jsDelivr
+        "font-src 'self' https://fonts.googleapis.com https://fonts.gstatic.com https://cdn.jsdelivr.net https://cdnjs.cloudflare.com; "
+        # Allow images from the same origin
+        "img-src 'self' data:; "
+        # Allow external connections for emailjs and others
+        "connect-src 'self' https://emailjs.com; "
+        # No frames allowed
+        "frame-src 'none'; "
+        # Restrict object-src, base-uri, form-action, frame-ancestors, manifest-src, media-src, worker-src
+        "object-src 'none'; "
+        "base-uri 'self'; "
+        "form-action 'self'; "
+        "frame-ancestors 'none'; "
+        "manifest-src 'self'; "
+        "media-src 'self'; "
+        "worker-src 'self'; "
+    )
+    response.headers['Content-Security-Policy'] = csp
+    return response
+
 # Weather Data 
-
-
 def get_weather_data(api_key: str, location: str, start_date: str, end_date: str) -> dict:
     """
     Retrieves weather data from Visual Crossing Weather API for a given location and date range.
@@ -219,6 +245,8 @@ def register():
     else:
         return render_template("register.html")
     
+
+
 # Robots.txt
 @app.route('/robots.txt')
 def robots():
