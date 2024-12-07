@@ -9,7 +9,7 @@ cffi==1.16.0
 charset-normalizer==3.3.1
 click==8.1.7
 colorama==0.4.6
-Flask==3.0.3
+Flask==3.1.0
 flask-sitemapper
 Flask-SQLAlchemy==3.1.1
 google-ai-generativelanguage==0.3.3
