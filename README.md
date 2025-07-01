@@ -1,10 +1,14 @@
 # [Travel Itinerary Generator](https://sanjeev02.pythonanywhere.com)
 ***
 
-[![GitHub license](https://img.shields.io/github/license/Sanjeev-Kumar78/Travel-Itinerary-Generator)](LICENSE)
-[![GitHub issues](https://img.shields.io/github/issues/Sanjeev-Kumar78/Travel-Itinerary-Generator)]()
-[![GitHub contributors](https://img.shields.io/github/contributors/Sanjeev-Kumar78/Travel-Itinerary-Generator)]()
-[![GitHub last-commit](https://img.shields.io/github/last-commit/Sanjeev-Kumar78/Travel-Itinerary-Generator)]()
+[![Sponsor](https://img.shields.io/badge/Sponsor-%E2%9D%A4-ff5f5f?style=for-the-badge&logo=github&logoColor=white)](https://github.com/sponsors/Sanjeev-Kumar78)
+[![GitHub license](https://img.shields.io/github/license/Sanjeev-Kumar78/Travel-Itinerary-Generator?style=for-the-badge)](LICENSE)
+[![GitHub issues](https://img.shields.io/github/issues/Sanjeev-Kumar78/Travel-Itinerary-Generator?style=for-the-badge)]()
+[![GitHub contributors](https://img.shields.io/github/contributors/Sanjeev-Kumar78/Travel-Itinerary-Generator?style=for-the-badge)]()
+[![GitHub last-commit](https://img.shields.io/github/last-commit/Sanjeev-Kumar78/Travel-Itinerary-Generator?style=for-the-badge)]()
+
+
+
 
 
 <img title="Travel-Itinerary-Generator" align='right' src="/static/logo.svg" alt="Travel Itinerary Generator Logo" width="150"/>
@@ -119,4 +123,3 @@ python wsgi.py
 ## License
 
 This project is licensed under the [Apache License 2.0](LICENSE) - see the [LICENSE](LICENSE) file for details.
-
