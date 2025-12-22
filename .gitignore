@@ -1,1 +1,5 @@
 .env
+# uv
+.venv/
+__pycache__/
+*.pyc
