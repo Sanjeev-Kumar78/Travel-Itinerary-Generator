@@ -59,12 +59,14 @@ Travel Itinerary Generator is a computer program that empowers travelers to effo
 
 - **Weather Forecast:** The Travel Itinerary Generator provides a weather forecast of the destination for the whole travel time.
 - **Travel Itinerary:** The Travel Itinerary Generator provides a travel itinerary for the whole travel time in an optimum budget.
+- **Translation:** The Travel Itinerary Generator provides an in-dashboard translation feature that translates the entire itinerary into the user's preferred language.
 ## Requirements
 
 - Python 3.11
 - Flask
 - Flask-SQLAlchemy
 - google-generativeai==0.2.2
+- deep_translator
 
 ## Setup and Installation
 

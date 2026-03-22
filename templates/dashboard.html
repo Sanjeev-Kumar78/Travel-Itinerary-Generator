@@ -4,29 +4,29 @@
 <main>
   <div class="container">
     <h1>Weather Information</h1>
-    <h5><b>Location:</b> {{weather_data['resolvedAddress']}}</h5>
+    <h5 data-translate><b>Location:</b> {{weather_data['resolvedAddress']}}</h5>
     <table class="table table-striped">
       <thead>
         <tr>
-          <th>Date</th>
-          <th>Current Weather Conditions</th>
-          <th>Max Temperature (in °C)</th>
-          <th>Min Temperature (in °C)</th>
-          <th>Precipitation Probability</th>
-          <th>Humidity</th>
-          <th>Weather Alerts</th>
+          <th data-translate>Date</th>
+          <th data-translate>Current Weather Conditions</th>
+          <th data-translate>Max Temperature (in °C)</th>
+          <th data-translate>Min Temperature (in °C)</th>
+          <th data-translate>Precipitation Probability</th>
+          <th data-translate>Humidity</th>
+          <th data-translate>Weather Alerts</th>
         </tr>
       </thead>
       <tbody>
         {% for weather_data_item in weather_data['days'] %}
         <tr>
-          <td>{{ weather_data_item['datetime'] }}</td>
-          <td>{{ weather_data_item['conditions'] }}</td>
-          <td>{{ weather_data_item['tempmax'] }}</td>
-          <td>{{ weather_data_item['tempmin'] }}</td>
-          <td>{{ weather_data_item['precipprob'] }}</td>
-          <td>{{ weather_data_item['humidity'] }}</td>
-          <td>{{ weather_data_item['description'] }}</td>
+          <td data-translate>{{ weather_data_item['datetime'] }}</td>
+          <td data-translate>{{ weather_data_item['conditions'] }}</td>
+          <td data-translate>{{ weather_data_item['tempmax'] }}</td>
+          <td data-translate>{{ weather_data_item['tempmin'] }}</td>
+          <td data-translate>{{ weather_data_item['precipprob'] }}</td>
+          <td data-translate>{{ weather_data_item['humidity'] }}</td>
+          <td data-translate>{{ weather_data_item['description'] }}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -34,13 +34,32 @@
   </div>
   <div class="container">
     <!-- Paragraph of plan with markdown syntax -->
-    <h1>Planned Itinerary</h1>
-    <code><h6>
+    <h1 data-translate>Planned Itinerary</h1>
+    <h6 data-translate>
             **This is a tentative itinerary, so please be flexible, it may have
             some mistakes.
-          </h6></code>
+    </h6>
 
     <div id="markdown-content">{{ plan }}</div>
+
+    <div class="card mt-4" style="max-width: 520px;">
+      <div class="card-body">
+        <div class="d-flex justify-content-between align-items-center mb-2">
+          <h5 class="mb-0">Translate Itinerary</h5>
+        </div>
+        <div class="d-flex flex-wrap gap-2 align-items-center" id="translate-controls">
+          <select id="language-select" class="form-select form-select-sm" style="max-width: 280px;" aria-label="Select language">
+            <option value="" selected disabled>Select language</option>
+            {% for name, code in languages.items()|sort %}
+              <option value="{{ code }}">{{ name|title }} ({{ code }})</option>
+            {% endfor %}
+          </select>
+          <button id="translate-run" class="btn btn-primary btn-sm" style="min-width: 96px;">Translate</button>
+          <span id="translate-status" class="text-muted small" style="display: none;">Translating... please wait</span>
+        </div>
+        <p class="text-muted small mt-2" id="translate-hint">Translates entire page content.</p>
+      </div>
+    </div>
   </div>
 
   <!-- Hotels at Destination -->
@@ -160,37 +179,146 @@
 
 <!-- This script creates a Markdown parser, converts the Markdown text to HTML, and inserts the converted HTML into the document. The Markdown text is obtained from an element with the ID "markdown-content". -->
 <script>
-  // Create a Markdown parser
   const md = window.markdownit();
+  const markdownElement = document.getElementById("markdown-content");
+  const originalMarkdown = markdownElement ? markdownElement.textContent : "";
+  const renderMarkdown = (text) => {
+    if (markdownElement) {
+      markdownElement.innerHTML = md.render(text);
+    }
+  };
 
-  // Convert the Markdown text to HTML
-  const html = md.render(
-    document.getElementById("markdown-content").textContent
-  );
+  renderMarkdown(originalMarkdown);
 
-  // Insert the converted HTML into the document
-  document.getElementById("markdown-content").innerHTML = html;
-  // pdf of itinerary
-  document.getElementById('download').addEventListener('click', function() {
-    var element = document.querySelector('main');
-    var opt = {
-      margin: 0.5,
-      filename: 'itinerary.pdf',
-      image: { type: 'png', quality: 100 },
-      html2canvas: { scale: 0.8 },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+  const translateRun = document.getElementById("translate-run");
+  const languageSelect = document.getElementById("language-select");
+  const translateStatus = document.getElementById("translate-status");
+  const translateHint = document.getElementById("translate-hint");
+
+  const translateTargets = [];
+  translateTargets.push({ type: "markdown", original: originalMarkdown });
+
+  const translatableElements = Array.from(document.querySelectorAll("[data-translate]"));
+  translatableElements.forEach((el) => {
+    const original = (el.textContent || "").trim();
+    el.dataset.original = original;
+    translateTargets.push({ type: "element", el, original });
+  });
+
+  const languageOptions = languageSelect
+    ? Array.from(languageSelect.options)
+        .filter((opt) => opt.value)
+        .map((opt) => ({ value: opt.value, label: opt.textContent || opt.value, element: opt }))
+    : [];
+
+  let languageFilter = "";
+  const applyLanguageFilter = (term) => {
+    const value = (term || "").trim().toLowerCase();
+    languageOptions.forEach((opt) => {
+      const match = !value || opt.label.toLowerCase().includes(value) || opt.value.toLowerCase().includes(value);
+      opt.element.hidden = !match;
+    });
+  };
+
+  if (languageSelect) {
+    const handleTranslate = async () => {
+      const targetLang = languageSelect.value;
+      if (!targetLang || translateTargets.length === 0) {
+        alert("Please choose a valid language.");
+        return;
+      }
+
+      if (translateStatus) {
+        translateStatus.textContent = "Translating... please wait";
+        translateStatus.style.display = "inline";
+      }
+      languageSelect.disabled = true;
+      if (translateRun) {
+        translateRun.disabled = true;
+      }
+
+      try {
+        const response = await fetch("/api/translate", {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ texts: translateTargets.map((t) => t.original), target_lang: targetLang }),
+        });
+        const payload = await response.json();
+        if (!response.ok || !payload.translated_texts || payload.translated_texts.length !== translateTargets.length) {
+          throw new Error(payload.error || "Translation failed. Please try again.");
+        }
+
+        payload.translated_texts.forEach((text, index) => {
+          const target = translateTargets[index];
+          if (target.type === "markdown") {
+            renderMarkdown(text || originalMarkdown);
+          } else if (target.el) {
+            target.el.textContent = text;
+          }
+        });
+      } catch (error) {
+        alert(error.message || "Translation failed. Please try again.");
+        languageSelect.value = "";
+        renderMarkdown(originalMarkdown);
+        translatableElements.forEach((el) => {
+          el.textContent = el.dataset.original || el.textContent;
+        });
+      } finally {
+        if (translateStatus) {
+          translateStatus.style.display = "none";
+          translateStatus.textContent = "Translating... please wait";
+        }
+        languageSelect.disabled = false;
+        if (translateRun) {
+          translateRun.disabled = false;
+        }
+      }
     };
 
-      html2pdf().set(opt).from(element).toPdf().get('pdf').then(function(pdf) {
-      var totalPages = pdf.internal.getNumberOfPages();
-      for (var i = 1; i <= totalPages; i++) {
-        // Set position and alignment of footer text
-        pdf.setPage(i);
-        pdf.text('Visit us at:"https://sanjeev02.pythonanywhere.com"', 0.2, pdf.internal.pageSize.height - 0.3);
+    languageSelect.addEventListener("keydown", (e) => {
+      const key = e.key;
+      const isCharacter = key.length === 1 && !e.ctrlKey && !e.metaKey && !e.altKey;
+      if (isCharacter) {
+        languageFilter += key;
+        applyLanguageFilter(languageFilter);
+      } else if (key === "Backspace") {
+        languageFilter = languageFilter.slice(0, -1);
+        applyLanguageFilter(languageFilter);
+      } else if (key === "Escape") {
+        languageFilter = "";
+        applyLanguageFilter(languageFilter);
+      } else if (key === "Enter") {
+        // Do not auto-translate on Enter; only the button triggers translation.
+        e.preventDefault();
       }
-      pdf.save('itinerary.pdf');
     });
-  });
+    if (translateRun) {
+      translateRun.addEventListener("click", handleTranslate);
+    }
+  }
+
+  const downloadButton = document.getElementById('download');
+  if (downloadButton) {
+    downloadButton.addEventListener('click', function() {
+      var element = document.querySelector('main');
+      var opt = {
+        margin: 0.5,
+        filename: 'itinerary.pdf',
+        image: { type: 'png', quality: 100 },
+        html2canvas: { scale: 0.8 },
+        jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
+      };
+
+      html2pdf().set(opt).from(element).toPdf().get('pdf').then(function(pdf) {
+        var totalPages = pdf.internal.getNumberOfPages();
+        for (var i = 1; i <= totalPages; i++) {
+          pdf.setPage(i);
+          pdf.text('Visit us at:"https://sanjeev02.pythonanywhere.com"', 0.2, pdf.internal.pageSize.height - 0.3);
+        }
+        pdf.save('itinerary.pdf');
+      });
+    });
+  }
 
 </script>
 {% endblock %}
