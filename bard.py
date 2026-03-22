@@ -1,9 +1,11 @@
 from google import genai
 import os
+from pathlib import Path
 from dotenv import load_dotenv
 
-# Load the environment variables
-load_dotenv()
+# Load the environment variables from the project root even if cwd differs
+env_path = Path(__file__).resolve().with_name(".env")
+load_dotenv(env_path)
 api_key = os.environ.get("GEMINI_API_KEY")
 
 # Initialize client lazily
@@ -42,7 +44,7 @@ def generate_itinerary(source, destination, start_date, end_date, no_of_days):
     # Get the client and generate content
     client = get_client()
     response = client.models.generate_content(
-        model="gemini-2.0-flash-exp",
+        model="gemini-2.0-flash",
         contents=user_prompt,
         config=genai.types.GenerateContentConfig(
             tools=[grounding_tool], 

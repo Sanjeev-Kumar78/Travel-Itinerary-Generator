@@ -1,5 +1,6 @@
 
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from deep_translator import GoogleTranslator
+from flask import Flask, render_template, request, redirect, url_for, session, flash, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_sitemapper import Sitemapper
 import bcrypt
@@ -137,8 +138,8 @@ def index():
             flash("Error in generating the plan. Please try again later.", "danger")
             return redirect(url_for("index"))
         if weather_data:
-            # Render the weather information in the template
-            return render_template("dashboard.html", weather_data=weather_data, plan=plan)
+            languages = GoogleTranslator().get_supported_languages(as_dict=True)
+            return render_template("dashboard.html", weather_data=weather_data, plan=plan, languages=languages)
     
     return render_template('index.html')
 
@@ -167,6 +168,40 @@ def contact():
     message = ''
 
     return render_template("contact.html", user_email=user_email, user_name=user_name, message=message)
+
+@app.route("/api/translate", methods=["POST"])
+def api_translate():
+    """
+    Translation endpoint used by the dashboard to translate itinerary and
+    page text on demand. Supports both single string and list payloads.
+    """
+    data = request.get_json(silent=True) or {}
+    target_lang = (data.get("target_lang") or "").strip()
+    texts = data.get("texts")
+    text = (data.get("text") or "").strip()
+
+    if (not text and not texts) or not target_lang:
+        return jsonify({"error": "Missing text(s) or target language."}), 400
+
+    translator = GoogleTranslator(source="auto", target=target_lang)
+
+    if isinstance(texts, list):
+        translated_items = []
+        try:
+            for item in texts:
+                item_text = (item or "").strip()
+                translated_items.append(translator.translate(item_text) if item_text else "")
+        except Exception:
+            return jsonify({"error": "Translation failed. Please try again."}), 500
+        return jsonify({"translated_texts": translated_items})
+
+    try:
+        translated = translator.translate(text)
+    except Exception:
+        return jsonify({"error": "Translation failed. Please try again."}), 500
+
+    return jsonify({"translated_text": translated})
+
 
 @sitemapper.include() # Include the route in the sitemap
 @app.route("/login", methods=["GET", "POST"])
