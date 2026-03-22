@@ -300,23 +300,34 @@
   const downloadButton = document.getElementById('download');
   if (downloadButton) {
     downloadButton.addEventListener('click', function() {
-      var element = document.querySelector('main');
-      var opt = {
+      if (!markdownElement || !markdownElement.innerHTML.trim()) {
+        alert('Itinerary is not available yet. Please generate it first.');
+        return;
+      }
+
+      const exportNode = document.createElement('section');
+      exportNode.style.padding = '24px';
+      exportNode.style.background = '#ffffff';
+      exportNode.style.color = '#111827';
+      exportNode.style.fontFamily = 'Arial, sans-serif';
+      exportNode.style.lineHeight = '1.6';
+
+      const now = new Date();
+      const dateString = now.toLocaleDateString();
+      exportNode.innerHTML =
+        '<h1 style="margin:0 0 6px 0; font-size:24px;">Travel Itinerary</h1>' +
+        '<p style="margin:0 0 16px 0; color:#4b5563;">Generated on ' + dateString + '</p>' +
+        markdownElement.innerHTML;
+
+      const opt = {
         margin: 0.5,
         filename: 'itinerary.pdf',
-        image: { type: 'png', quality: 100 },
-        html2canvas: { scale: 0.8 },
+        image: { type: 'jpeg', quality: 0.98 },
+        html2canvas: { scale: 1.4, useCORS: true },
         jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' },
       };
 
-      html2pdf().set(opt).from(element).toPdf().get('pdf').then(function(pdf) {
-        var totalPages = pdf.internal.getNumberOfPages();
-        for (var i = 1; i <= totalPages; i++) {
-          pdf.setPage(i);
-          pdf.text('Visit us at:"https://sanjeev02.pythonanywhere.com"', 0.2, pdf.internal.pageSize.height - 0.3);
-        }
-        pdf.save('itinerary.pdf');
-      });
+      html2pdf().set(opt).from(exportNode).save();
     });
   }
 

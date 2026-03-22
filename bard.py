@@ -44,7 +44,7 @@ def generate_itinerary(source, destination, start_date, end_date, no_of_days):
     # Get the client and generate content
     client = get_client()
     response = client.models.generate_content(
-        model="gemini-2.0-flash",
+        model="gemini-2.5-flash",
         contents=user_prompt,
         config=genai.types.GenerateContentConfig(
             tools=[grounding_tool], 

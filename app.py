@@ -185,18 +185,43 @@ def api_translate():
 
     translator = GoogleTranslator(source="auto", target=target_lang)
 
+    def translate_with_chunking(value: str, max_chars: int = 4500) -> str:
+        """
+        deep-translator raises errors for very long strings. Split long text
+        into smaller chunks and translate each chunk safely.
+        """
+        cleaned = (value or "").strip()
+        if not cleaned:
+            return ""
+        if len(cleaned) <= max_chars:
+            return translator.translate(cleaned)
+
+        chunks = []
+        start = 0
+        while start < len(cleaned):
+            end = min(start + max_chars, len(cleaned))
+            if end < len(cleaned):
+                split_at = cleaned.rfind(" ", start, end)
+                if split_at > start:
+                    end = split_at
+            chunks.append(cleaned[start:end].strip())
+            start = end
+
+        translated_chunks = [translator.translate(chunk) for chunk in chunks if chunk]
+        return " ".join(translated_chunks)
+
     if isinstance(texts, list):
         translated_items = []
         try:
             for item in texts:
                 item_text = (item or "").strip()
-                translated_items.append(translator.translate(item_text) if item_text else "")
+                translated_items.append(translate_with_chunking(item_text) if item_text else "")
         except Exception:
             return jsonify({"error": "Translation failed. Please try again."}), 500
         return jsonify({"translated_texts": translated_items})
 
     try:
-        translated = translator.translate(text)
+        translated = translate_with_chunking(text)
     except Exception:
         return jsonify({"error": "Translation failed. Please try again."}), 500
 
