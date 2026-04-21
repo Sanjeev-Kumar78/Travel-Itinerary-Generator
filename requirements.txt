@@ -38,7 +38,7 @@ pydantic==2.12.5
 pydantic-core==2.41.5
 pyparsing==3.2.5
 pysocks==1.7.1
-python-dotenv==1.2.1
+python-dotenv==1.2.2
 requests==2.33.0
 rsa==4.9.1
 selenium==4.39.0
